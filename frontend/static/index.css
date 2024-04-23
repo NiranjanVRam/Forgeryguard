@@ -1,0 +1,83 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #0a0a0a;
+}
+
+.upload-container {
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.upload-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-button:hover {
+    background-color: #0056b3;
+}
+
+.preview-output-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.image-preview, .output-container {
+    flex-basis: 45%;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+#previewImage, #outputImage {
+    max-width: 100%;
+    height: auto;
+}
+
+#imagePreview canvas {
+    max-width: 100%;  /* Ensures the canvas is not wider than its container */
+    height: auto;     /* Maintains the aspect ratio */
+}
+
+
+.image-preview p {
+    color: #666;
+}
+
+h2 {
+    color: #444;
+}
+
+@media (max-width: 768px) {
+    .preview-output-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-preview, .output-container {
+        flex-basis: 80%;
+    }
+}
