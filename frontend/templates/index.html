@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgeryGuard</title>
+    <link rel="stylesheet" href="/static/index.css">
+    <script src="/static/tiff.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>ForgeryGuard</h1>
+        <div class="upload-container">
+            <input type="file" id="imageUpload" accept="image/*" hidden>
+            <label for="imageUpload" class="upload-button">Choose Image</label>
+        </div>
+        <div class="preview-output-container">
+            <div class="image-preview" id="imagePreview">
+                <p>No image selected</p>
+                <img id="previewImage" src="#" alt="Preview of uploaded image" style="display: none;">
+            </div>
+            <div class="output-container">
+                <h2>Output</h2>
+                <img id="outputImage" src="#" alt="Processed output image" hidden>
+            </div>
+        </div>
+        <br>
+        <button class="upload-button" id="processBtn">Process Image</button>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
