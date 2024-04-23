@@ -57,6 +57,12 @@ h1 {
     height: auto;
 }
 
+#imagePreview canvas {
+    max-width: 100%;  /* Ensures the canvas is not wider than its container */
+    height: auto;     /* Maintains the aspect ratio */
+}
+
+
 .image-preview p {
     color: #666;
 }
