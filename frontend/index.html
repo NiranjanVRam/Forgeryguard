@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ForgeryGuard</title>
     <link rel="stylesheet" href="index.css">
+    <script src="tiff.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -24,17 +25,7 @@
             </div>
         </div>
     </div>
-    <script>
-        document.getElementById('imageUpload').addEventListener('change', function(event) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const previewImage = document.getElementById('previewImage');
-                previewImage.src = e.target.result;
-                previewImage.style.display = 'block';
-                document.querySelector("#imagePreview p").style.display = 'none';
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        });
-    </script>
+    <script src="script.js"></script>
+    
 </body>
 </html>
