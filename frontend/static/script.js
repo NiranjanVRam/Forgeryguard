@@ -25,7 +25,7 @@ document.getElementById('imageUpload').addEventListener('change', function(event
                 alert("Failed to process TIFF image.");
             }
         };
-        reader.readAsArrayBuffer(file);
+        reader.readAsArrayBuffer(file); // Read the file as an ArrayBuffer
     } else {
         reader.onload = function(e) {
             const previewImage = document.getElementById('previewImage');
@@ -47,14 +47,21 @@ function sendToServer(file) {
         method: 'POST',
         body: formData,
     })
-    .then(response => response.blob())
-    .then(imageBlob => {
-        // Assuming you want to display the image response
-        const imageObjectURL = URL.createObjectURL(imageBlob);
-        document.getElementById('outputImage').src = imageObjectURL;
-        document.getElementById('outputImage').hidden = false;
+    .then(response => response.json())
+    .then(data => {
+        // console.log('success   ====   ',data)
+        // // Assuming you want to display the forgery detection result image
+        // const imageObjectURL = URL.createObjectURL(file);
+        // document.getElementById('outputImage').src = imageObjectURL;
+        // document.getElementById('outputImage').hidden = false;
+        console.log('dataheatmap   ===   ',data)
+        if (data.heatmap) {
+            document.getElementById('outputImage').src = data.heatmap;
+            document.getElementById('outputImage').hidden = false;
+        }
     })
     .catch(error => console.error('Error uploading the image:', error));
+
 }
 
 // Event listener for the process button
