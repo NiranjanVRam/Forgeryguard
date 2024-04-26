@@ -37,31 +37,60 @@ document.getElementById('imageUpload').addEventListener('change', function(event
     }
 });
 
+document.getElementById('cancelProcessingBtn').addEventListener('click', function() {
+    fetch('/cancel_process', { method: 'POST' })
+        .then(response => window.location.reload())
+        .catch(error => window.location.reload()); // Reload even if there's an error sending the cancel request
+});
+
+
+function showLoadingDialog() {
+    const loadingDialog = document.getElementById('loadingDialog');
+    loadingDialog.style.display = 'block'; // Show the loading dialog
+}
+
+function hideLoadingDialog() {
+    const loadingDialog = document.getElementById('loadingDialog');
+    loadingDialog.style.display = 'none'; // Hide the loading dialog
+}
+
 // Function to send image to server or process it further
 // Example JavaScript to send the file to the Flask endpoint
 function sendToServer(file) {
+    showLoadingDialog(); // Show loading dialog when processing starts
+    const outputImage = document.getElementById('outputImage');
     const formData = new FormData();
     formData.append('file', file);
+
+    // Clear previous images and indicate loading
+    outputImage.src = "";
+    outputImage.hidden = true;
+    outputImage.alt = "Loading...";  // Indicate that loading is happening
 
     fetch('/upload', {
         method: 'POST',
         body: formData,
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
     .then(data => {
-        // console.log('success   ====   ',data)
-        // // Assuming you want to display the forgery detection result image
-        // const imageObjectURL = URL.createObjectURL(file);
-        // document.getElementById('outputImage').src = imageObjectURL;
-        // document.getElementById('outputImage').hidden = false;
-        console.log('dataheatmap   ===   ',data)
+        hideLoadingDialog(); // Hide loading dialog when processing ends
         if (data.heatmap) {
-            document.getElementById('outputImage').src = data.heatmap;
-            document.getElementById('outputImage').hidden = false;
+            outputImage.src = data.heatmap;
+            outputImage.hidden = false;
+            outputImage.alt = "Processed output image";  // Reset the alt text
+            data.heatmap='';
         }
     })
-    .catch(error => console.error('Error uploading the image:', error));
-
+    .catch(error => {
+        console.error('Error uploading the image:', error);
+        alert('Error processing the image. Please try again.');
+        outputImage.alt = "Failed to load image";  // Provide feedback on error
+    });
 }
 
 // Event listener for the process button
