@@ -84,6 +84,7 @@ function sendToServer(file) {
             outputImage.hidden = false;
             outputImage.alt = "Processed output image";  // Reset the alt text
             data.heatmap='';
+            outputHeader.style.display = 'none';
         }
     })
     .catch(error => {
