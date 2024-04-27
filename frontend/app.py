@@ -94,6 +94,7 @@ def upload_file():
             overlap = 96 #patch sampling overlap
 
             sg2 = sm.calc_simgraph(image = I2, f_weights_restore = fweights, patch_size = patch_size, overlap = overlap)
+
             ## Forgery Localization - Modularity Optimization
             M = gu.sym_mat(sg2.mat) #symmetric similarity matrix for spliced image
             g = gu.adj_to_graph(M, threshold=0.7) #convert to igraph Graph object
@@ -108,6 +109,8 @@ def upload_file():
                                                                 patch_size = patch_size,
                                                                 image_shape = I2.shape[:2],
                                                                 threshold = 0.5)
+            
+            ## Forgery Localization - Spectral Clustering
             L = su.laplacian(M)
             prediction = su.spectral_cluster(L)
 
@@ -124,7 +127,12 @@ def upload_file():
                                                             image_shape = I2.shape[:2],
                                                             threshold = 0.37)
 
-            #pix_loc.plot(image=I2)
+            f = pix_loc.plot(image=I2)
+            heatmap_path = os.path.join(image_save_path, 'heatmap_result.png')
+            plt.savefig(heatmap_path, bbox_inches='tight')
+            return jsonify({'heatmap': f'/static/processed_images/heatmap_result.png'})
+
+            # Generating heatmap
 
             ## Forgery Localization - Normalized Spectral Clustering
             L = su.laplacian(M,laplacian_type='sym')
@@ -149,13 +157,13 @@ def upload_file():
 
             # Generating heatmap
             f = pat_loc.plot_heatmap(image=I2)
-            heatmap_path = os.path.join(image_save_path, 'heatmap_result.png')
+            #heatmap_path = os.path.join(image_save_path, 'heatmap_result.png')
 
             # Delete existing file if it exists
             if os.path.exists(heatmap_path):
                 os.remove(heatmap_path)
 
-            plt.savefig(heatmap_path, bbox_inches='tight')
+            #plt.savefig(heatmap_path, bbox_inches='tight')
             
             # URL for the saved heatmap image
             # heatmap_url = url_for('static', filename=f'processed_images/heatmap_result.png')
