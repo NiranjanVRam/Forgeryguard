@@ -18,15 +18,19 @@ Suggested IDE for execution: VS Code
 - Run 0_compute_visualize_similarity_graph
 - Run 1_forgery_detection
 - Run 2_forgery_localization
+
 While using this method, results(images, matrices, graphs, outputs) will directly be displayed in IDE itself.
 
 ## Evaluating the tool
 Modules 3, 4 and 5 given below are for evaluation of the tool(ForgeryGuard).
+
 It consumes more execution time and memory.
+
 For 3, 4 and 5, you need to download each dataset below from its sources:
 - Columbia
 - Carvalho
 - Korus
+
 If any image from the dataset is not of .TIFF or .tiff format, change to it to same.
 
 
