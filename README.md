@@ -2,7 +2,9 @@
 
 
 ## Getting Started
-clone the github repo using
+Make sure your system has python 3.6.8rc1 version. If not, you can download it from [this](https://www.python.org/downloads/release/python-368rc1/) website.
+
+Clone the github repo using:
 git clone https://github.com/NiranjanVRam/Forgeryguard.git
 
 Requirements have been mentioned at end of this file.
